@@ -1,0 +1,47 @@
+<html>
+<body>
+<div style="max-width:512px; margin:auto">
+
+<div style="text-align:center; font-family:Monospace">
+<p style="font-size:17px">WWOORRDDLLEE</p>
+<b><span id="letters-used" style="font-size:31px"></span></b>
+
+<br>
+<br>
+
+<p>
+<button type="button" id="guess-button" onclick="check()" style="font-family:Monospace">Guess</button>
+<input type="text" id="guess-input"></input>
+<button type="button" id="guess-button" onclick="check()" style="font-family:Monospace">Guess</button>
+<br>
+<br>
+<span id="message" style="font-size:17px"></span>
+</p>
+
+<b><span id="guesses" style="font-size:31px"></span></b>
+</div>
+
+<br>
+<hr>
+
+<div style="font-family:Monospace; font-size:17px">
+<p>You are trying to guess two five-letter words.
+A letter is green if it appears in the correct spot in <i>either</i> word.
+A letter is yellow if it appears in <i>either</i> word but in the correct spot in <i>neither</i>.</p>
+
+<p>When you find one of the hidden words, it will have a <b>*</b> next to it.
+Warning: Just because a word is all green does not mean that it is one of the hidden words!</p>
+
+<p id="new-word-when"></p>
+
+<p>Made by <a href="https://jakehuryn.github.io">Jake Huryn</a>.</p>
+</div>
+
+<script src="wwoorrddllee.js"></script>
+<script src="words.js"></script>
+
+</div>
+</body>
+</html>
+
+<!-- для моєї сонечка -->
