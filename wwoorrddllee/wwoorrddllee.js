@@ -1,5 +1,4 @@
-// yes, i know this 100% cursed
-// javascript made me do it
+// yes, i know this 100% cursed. javascript made me do it
 // thanks to knuth for the word list
 
 var valid_guesses = `which
@@ -9141,9 +9140,9 @@ document.getElementById("new-word-when").innerHTML = "";
 var guess_num = 0;
 var correct1 = false;
 var correct2 = false;
-const green_letters = [];
-const yellow_letters = [];
-const absent_letters = [];
+var green_letters = [];
+var yellow_letters = [];
+var absent_letters = [];
 
 // pick a random word
 // got the random-with-seed number generator from https://stackoverflow.com/a/47593316
@@ -9163,32 +9162,32 @@ function sfc32(a, b, c, d) {
 }
 
 function pick_words(seed) {
-	var rand1 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed);
-	var rand2 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*10);
-	for (var i = 0; i < 15; i++) {
+	let rand1 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed);
+	let rand2 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*10);
+	for (let i = 0; i < 15; i++) {
 		rand1();
 		rand2();
 	}
-	var rand_index1 = Math.min(Math.floor(rand1()*word_count), word_count-1);
-	var rand_index2 = Math.min(Math.floor(rand2()*word_count), word_count-1);
+	let rand_index1 = Math.min(Math.floor(rand1()*word_count), word_count-1);
+	let rand_index2 = Math.min(Math.floor(rand2()*word_count), word_count-1);
 	
 	if (word_list[rand_index1][5] == "*") {
-		var rand1_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
-		for (var i = 0; i < 15; i++) {
+		let rand1_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
+		for (let i = 0; i < 15; i++) {
 			rand1_retry();
 		}
-		var rand_index1 = Math.min(Math.floor(rand1_retry()*word_count, word_count-1));
+		let rand_index1 = Math.min(Math.floor(rand1_retry()*word_count, word_count-1));
 	}
 	if (word_list[rand_index2][5] == "*") {
-		var rand2_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
-		for (var i = 0; i < 15; i++) {
+		let rand2_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
+		for (let i = 0; i < 15; i++) {
 			rand2_retry();
 		}
-		var rand_index2 = Math.min(Math.floor(rand2_retry()*word_count, word_count-1));
+		let rand_index2 = Math.min(Math.floor(rand2_retry()*word_count, word_count-1));
 	}
 	
-	var temp_word1 = word_list[rand_index1];
-	var temp_word2 = word_list[rand_index2];
+	let temp_word1 = word_list[rand_index1];
+	let temp_word2 = word_list[rand_index2];
 	
 	return [temp_word1, temp_word2];
 }
@@ -9218,26 +9217,49 @@ if (hour_differential == 0) {
 
 // magic happens
 
+function new_game() {
+	document.getElementById("guesses").innerHTML = "";
+	document.getElementById("letters-used").innerHTML = "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;";
+	document.getElementById("message").innerHTML = "Take a guess!";
+	guess_num = 0;
+	correct1 = false;
+	correct2 = false;
+	green_letters = [];
+	yellow_letters = [];
+	absent_letters = [];
+	
+	let rand_index1 = Math.min(Math.floor(Math.random()*word_count), word_count-1);
+	let rand_index2 = Math.min(Math.floor(Math.random()*word_count), word_count-1);
+	if (word_list[rand_index1][5] == "*") {
+		let rand_index1 = Math.min(Math.floor(Math.random()*word_count, word_count-1));
+	}
+	if (word_list[rand_index2][5] == "*") {
+		let rand_index2 = Math.min(Math.floor(Math.random()*word_count, word_count-1));
+	}
+	word1 = word_list[rand_index1];
+	word2 = word_list[rand_index2];
+}
+
 function check() {
 	if (correct1 && correct2) {
 		return;
 	}
 	
-	const letters1 = word1.split("");
-	const letters2 = word2.split("");
-	const letters = letters1.concat(letters2);
+	let letters1 = word1.split("");
+	let letters2 = word2.split("");
+	let letters = letters1.concat(letters2);
 	
-	var guess = document.getElementById("guess-input").value;
+	let guess = document.getElementById("guess-input").value;
 	document.getElementById("guess-input").value = "";
 	guess = guess.toUpperCase();
 	if (!valid_guess_list.includes(guess)) {
 		return;
 	}
-	const guess_letters = guess.split("");
+	let guess_letters = guess.split("");
 	guess_num++;
 	
-	var correct_letters1 = 0;
-	var correct_letters2 = 0;
+	let correct_letters1 = 0;
+	let correct_letters2 = 0;
 	for (let i=0; i<5; i++) {
 		if (guess_letters[i] == letters1[i]) {
 			letters1[i] = "1";
@@ -9248,9 +9270,9 @@ function check() {
 			correct_letters2++;
 		}
 	}
-	const green_removed = letters1.concat(letters2);
+	let green_removed = letters1.concat(letters2);
 	
-	var output = "";
+	let output = "";
 	for (let i=0; i<5; i++) {
 		if (letters1[i] == "1" || letters2[i] == "1") {
 			output += "<span style=\"color:green\">" + guess_letters[i] + "</span>";
@@ -9267,7 +9289,7 @@ function check() {
 		}
 	}
 	
-	var letter_display = "";
+	let letter_display = "";
 	for (let i=0; i<26; i++) {
 		if (green_letters.includes(alphabet[i])) {
 			letter_display += "<span style=\"color:green\">" + alphabet[i] + "</span>";
