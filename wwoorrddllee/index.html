@@ -1,55 +1,87 @@
 <html>
+<head>
+<style>
+body {
+	max-width: 600px;
+	margin: auto;
+	font-family: Courier, Monospace;
+	color: #16161d;
+}
+</style>
+</head>
+
 <body>
-<div style="max-width:512px; margin:auto">
+<div style="text-align:center">
+<p style="font-size:17px">wwoorrddllee</p>
+<b><span id="letters-used-ELEMENT" style="font-size:27px"></span></b>
 
-<div style="text-align:center; font-family:Monospace">
-<p style="font-size:17px">WWOORRDDLLEE</p>
-<b><span id="letters-used" style="font-size:31px"></span></b>
-
-<br>
 <br>
 
 <p>
-<button type="button" id="guess-button" onclick="check()" style="font-family:Monospace">Guess</button>
-<input type="text" id="guess-input"></input>
-<button type="button" id="guess-button" onclick="check()" style="font-family:Monospace">Guess</button>
+<button type="button" id="guess-BUTTON" onclick="check()" style="font-family:Courier,Monospace">Guess</button>
+<input type="text" id="guess-INPUT"></input>
+<button type="button" id="guess-BUTTON" onclick="check()" style="font-family:Courier,Monospace">Guess</button>
 <br>
 <br>
-<span id="message" style="font-size:17px"></span>
+<span id="message-ELEMENT" style="font-size:17px"></span>
 </p>
 
-<b><span id="guesses" style="font-size:31px"></span></b>
+<b><span id="guesses-to-screen-ELEMENT" style="font-size:37px"></span></b>
 </div>
 
 <br>
 <hr>
 
-<div style="font-family:Monospace; font-size:17px">
-<p>You are trying to guess two five-letter words.
-A letter is green if it appears in the correct spot in <i>either</i> word.
-A letter is yellow if it appears in <i>either</i> word but in the correct spot in <i>neither</i>.</p>
-
-<p>When you find one of the hidden words, it will have a <b>*</b> next to it.
-Warning: Just because a word is all green does not mean that it is one of the hidden words!</p>
-
-<p id="new-word-when"></p>
-
+<div style="font-size:17px">
 <p>
-Click
-<button type="button" id="new-game-button" onclick="new_game()" style="font-family:Monospace">here</button>
-to start a new game with a random pair of words.
-Refreshing the page will return you to the daily puzzle.
+You are trying to guess two five-letter words.
+If a letter is green, it appears in the correct spot in <i>either</i> word.
+If a letter is yellow, it appears in <i>either</i> word but in the correct spot in <i>neither</i>.
 </p>
 
-<p>Made by <a href="https://jakehuryn.github.io">Jake Huryn</a>.
-Thanks for playing!</p>
+<p>
+When you find one of the hidden words, it will have a
+<span id="star-ELEMENT" style="color:#379127;font-size:27px"><b>*</b></span>
+next to it.
+Warning: Just because a word is all green does not mean that it is one of the hidden words!
+</p>
+
+<hr>
+
+<p>
+<span id="puzzle-message-ELEMENT"></span>
+Click
+<button type="button" id="random-game-BUTTON" onclick="random_game()" style="font-family:Courier,Monospace">here</button>
+to start a new game with a random pair of words.
+Click
+<button type="button" id="daily-game-BUTTON" onclick="initialize()" style="font-family:Courier,Monospace">here</button>
+to restart the daily puzzle.
+<span id="new-word-when-ELEMENT"></span>
+</p>
+
+<p>
+Dark mode: <input type="checkbox" id="dark-mode-CHECKBOX" onclick="update_dark_mode()">
+<br>
+</p>
+
+<hr>
+
+<p>
+Made by <a href="https://jakehuryn.github.io" style="color:#379127">Jake Huryn</a>.
+<!-- Для моєї сонечка. -->
+Thanks for playing!
+</p>
+
+<!-- -->
+<p>
+<button type="button" id="reset-storage-BUTTON" onclick="localStorage.clear()">localStorage.clear()</button>
+</p>
+<p id="debug1-ELEMENT" style="color:red"></p>
+<p id="debug2-ELEMENT" style="color:red"></p>
+<!-- -->
 </div>
 
 <script src="wwoorrddllee.js"></script>
 <script src="words.js"></script>
-
-</div>
 </body>
 </html>
-
-<!-- для моєї сонечка -->

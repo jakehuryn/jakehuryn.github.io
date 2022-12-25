@@ -5759,7 +5759,16 @@ rumba
 biffy
 pupal
 anime
-pouty`.toUpperCase();
+pouty
+soare
+strim
+fucky
+shite
+noobs
+bling
+rares
+gloop
+tushy`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -8810,7 +8819,7 @@ toner.
 clack.
 logos,
 tipsy.
-melee..
+melee.
 titan.
 binge.
 femur.
@@ -9118,35 +9127,35 @@ apnea.
 nerdy.
 wonky.
 anime.
-pouty.`.toUpperCase();
+pouty.
+bling.
+gloop.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
-var word_count = word_list.length;
+let word_count = word_list.length;
 const alphabet = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
 
 document.addEventListener("keypress", function(event) {
 	if (event.key === "Enter") {
 		event.preventDefault();
-		document.getElementById("guess-button").click();
+		document.getElementById("guess-BUTTON").click();
 	}
 });
 
-// initialize
+// colors
+let L_bg = "#ffffff";
+let D_bg = "#16161d";
+let L_text = "#16161d";
+let D_text = "#ffffff";
+let L_green = "#379127";
+let D_green = "#5ea752";
+let L_yellow = "#f3b63b";
+let D_yellow = "#f3983b";
+let L_absent = "#e7e7e8";
+let D_absent = "#373749";
 
-document.getElementById("guesses").innerHTML = "";
-document.getElementById("letters-used").innerHTML = "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;";
-document.getElementById("message").innerHTML = "Take a guess!";
-document.getElementById("new-word-when").innerHTML = "";
-var guess_num = 0;
-var correct1 = false;
-var correct2 = false;
-var green_letters = [];
-var yellow_letters = [];
-var absent_letters = [];
-
-// pick a random word
-// got the random-with-seed number generator from https://stackoverflow.com/a/47593316
-
+// some useful functions for random number generation
+// random-with-seed number generator from https://stackoverflow.com/a/47593316
 function sfc32(a, b, c, d) {
 	return function() {
 		a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
@@ -9161,103 +9170,154 @@ function sfc32(a, b, c, d) {
 	}
 }
 
-function pick_words(seed) {
-	let rand1 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed);
-	let rand2 = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*10);
-	for (let i = 0; i < 15; i++) {
-		rand1();
-		rand2();
+function rand_with_seed(seed) {
+	let rand = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed);
+	for (let i=0; i<15; i++) {
+		rand();
 	}
-	let rand_index1 = Math.min(Math.floor(rand1()*word_count), word_count-1);
-	let rand_index2 = Math.min(Math.floor(rand2()*word_count), word_count-1);
-	
-	if (word_list[rand_index1][5] == "*") {
-		let rand1_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
-		for (let i = 0; i < 15; i++) {
-			rand1_retry();
-		}
-		let rand_index1 = Math.min(Math.floor(rand1_retry()*word_count, word_count-1));
-	}
-	if (word_list[rand_index2][5] == "*") {
-		let rand2_retry = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, seed*100);
-		for (let i = 0; i < 15; i++) {
-			rand2_retry();
-		}
-		let rand_index2 = Math.min(Math.floor(rand2_retry()*word_count, word_count-1));
-	}
-	
-	let temp_word1 = word_list[rand_index1];
-	let temp_word2 = word_list[rand_index2];
-	
-	return [temp_word1, temp_word2];
+	return rand();
 }
 
-var new_word_shift = 6;
-var UTC_now = new Date();
-var now = new Date(UTC_now.getTime() - new_word_shift*3600*1000);
-var todays_seed = now.getUTCDate() + 100*now.getUTCMonth() + 10000*now.getUTCFullYear();
-var hidden_words = pick_words(todays_seed);
-var word1 = hidden_words[0];
-var word2 = hidden_words[1];
-
-// new word when? 
-
-var hour_differential = (24+now.getHours()-(now.getUTCHours()-new_word_shift)) % 24;
-var minute_differential = Math.abs(now.getMinutes()-now.getUTCMinutes()) / 10;
-
-if (hour_differential == 0) {
-	document.getElementById("new-word-when").innerHTML = "New pair of words at 12:" + minute_differential + "0am (local time).";
-} else if (hour_differential < 12) {
-	document.getElementById("new-word-when").innerHTML = "New pair of words at " + (hour_differential%12) + ":" + minute_differential + "0am (local time).";
-} else if (hour_differential == 12) {
-	document.getElementById("new-word-when").innerHTML = "New pair of words at 12:" + minute_differential + "0pm (local time).";
-} else {
-	document.getElementById("new-word-when").innerHTML = "New pair of words at " + (hour_differential%12) + ":" + minute_differential + "0pm (local time).";
+function correct_range(r) {
+	return Math.min(Math.floor(r*word_count), word_count-1);
 }
 
+// --
+// find words
+// --
+
+// daily words (plus info for knowing when the new words appear)
+let new_word_shift = 6;
+let UTC_now = new Date();
+let now = new Date(UTC_now.getTime() - new_word_shift*3600*1000);
+let today = now.getUTCDate();
+let daily_seed = today + 100*now.getUTCMonth() + 10000*now.getUTCFullYear();
+let daily_index1 = correct_range(rand_with_seed(daily_seed));
+let daily_index2 = correct_range(rand_with_seed(daily_seed*10));
+
+// regenerate if the words end in "s" and try one more time if both new words end in "s"
+if (word_list[daily_index1].split("")[5] === ",") {
+	daily_index1 = correct_range(rand_with_seed(daily_seed*10+1));
+}
+if (word_list[daily_index2].split("")[5] === ",") {
+	daily_index2 = correct_range(rand_with_seed(daily_seed*10+2));
+}
+if (word_list[daily_index1].split("")[5] === "," && word_list[daily_index2].split("")[5] === ",") {
+	daily_index1 = correct_range(rand_with_seed(daily_seed*10+3));
+	daily_index1 = correct_range(rand_with_seed(daily_seed*10+4));
+}
+
+let daily_word1 = word_list[daily_index1];
+let daily_word2 = word_list[daily_index2];
+
+// generate random words
+function random_word() {
+	let rand_index = correct_range(Math.random());
+	
+	if (word_list[rand_index].split("")[5] == ",") {
+		rand_index = correct_range(Math.random());
+	}
+	
+	return word_list[rand_index];
+}
+
+// --
+// game setup
+// --
+
+function print_messages() {
+	document.getElementById("letters-used-ELEMENT").innerHTML = localStorage.getItem("letters-used-STORAGE");
+	document.getElementById("message-ELEMENT").innerHTML = localStorage.getItem("message-STORAGE");
+	document.getElementById("guesses-to-screen-ELEMENT").innerHTML = localStorage.getItem("guesses-to-screen-STORAGE");
+	
+	if (localStorage.getItem("correct1-STORAGE") === "true" && localStorage.getItem("correct2-STORAGE") === "true") {
+		let puzzle_message = "You just solved" + localStorage.getItem("puzzle-message-STORAGE") + "!";
+		document.getElementById("puzzle-message-ELEMENT").innerHTML = puzzle_message;
+	} else {
+		let puzzle_message = "You are currently playing" + localStorage.getItem("puzzle-message-STORAGE") + ".";
+		document.getElementById("puzzle-message-ELEMENT").innerHTML = puzzle_message;
+	}
+	
+	document.getElementById("debug1-ELEMENT").innerHTML = localStorage.getItem("word1-STORAGE") + localStorage.getItem("word2-STORAGE");
+	document.getElementById("debug2-ELEMENT").innerHTML = now.getUTCHours();
+}
+
+function initialize() {
+	localStorage.setItem("game-data-STORAGE", true);
+	localStorage.setItem("letters-used-STORAGE", "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;");
+	localStorage.setItem("message-STORAGE", "Take a guess!");
+	localStorage.setItem("guesses-to-screen-STORAGE", "");
+	localStorage.setItem("guess-number-STORAGE", 0);
+	localStorage.setItem("past-guesses-STORAGE", "");
+	localStorage.setItem("correct1-STORAGE", false);
+	localStorage.setItem("correct2-STORAGE", false);
+	localStorage.setItem("green-letters-STORAGE", "");
+	localStorage.setItem("yellow-letters-STORAGE", "");
+	localStorage.setItem("absent-letters-STORAGE", "");
+	localStorage.setItem("word1-STORAGE", daily_word1);
+	localStorage.setItem("word2-STORAGE", daily_word2);
+	localStorage.setItem("day-STORAGE", today);
+	localStorage.setItem("puzzle-message-STORAGE", " the daily puzzle");
+	print_messages();
+}
+
+function random_game() {
+	initialize();
+	localStorage.setItem("word1-STORAGE", random_word());
+	localStorage.setItem("word2-STORAGE", random_word());
+	localStorage.setItem("puzzle-message-STORAGE", " a randomized puzzle");
+	print_messages();
+}
+
+if (localStorage.getItem("game-data-STORAGE") !== "true" || localStorage.getItem("day-STORAGE") !== today.toString()) {
+	initialize();
+}
+
+// --
 // magic happens
-
-function new_game() {
-	document.getElementById("guesses").innerHTML = "";
-	document.getElementById("letters-used").innerHTML = "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;";
-	document.getElementById("message").innerHTML = "Take a guess!";
-	guess_num = 0;
-	correct1 = false;
-	correct2 = false;
-	green_letters = [];
-	yellow_letters = [];
-	absent_letters = [];
-	
-	let rand_index1 = Math.min(Math.floor(Math.random()*word_count), word_count-1);
-	let rand_index2 = Math.min(Math.floor(Math.random()*word_count), word_count-1);
-	if (word_list[rand_index1][5] == "*") {
-		let rand_index1 = Math.min(Math.floor(Math.random()*word_count, word_count-1));
-	}
-	if (word_list[rand_index2][5] == "*") {
-		let rand_index2 = Math.min(Math.floor(Math.random()*word_count, word_count-1));
-	}
-	word1 = word_list[rand_index1];
-	word2 = word_list[rand_index2];
-}
+// --
 
 function check() {
+	// unpack local storage
+	let guess_number = parseInt(localStorage.getItem("guess-number-STORAGE"));
+	let past_guesses = localStorage.getItem("past-guesses-STORAGE").split(",");
+	let correct1 = localStorage.getItem("correct1-STORAGE") === "true";
+	let correct2 = localStorage.getItem("correct2-STORAGE") === "true";
+	let green_letters = localStorage.getItem("green-letters-STORAGE").split(",");
+	let yellow_letters = localStorage.getItem("yellow-letters-STORAGE").split(",");
+	let absent_letters = localStorage.getItem("absent-letters-STORAGE").split(",");
+	let word1 = localStorage.getItem("word1-STORAGE");
+	let word2 = localStorage.getItem("word2-STORAGE");
+	let dark_mode = localStorage.getItem("dark-mode-STORAGE") === "true";
+	
+	let green_color = (dark_mode ? D_green : L_green);
+	let yellow_color = (dark_mode ? D_yellow : L_yellow);
+	let absent_color = (dark_mode ? D_absent : L_absent);
+	
 	if (correct1 && correct2) {
 		return;
 	}
 	
+	let guess = document.getElementById("guess-INPUT").value;
+	document.getElementById("guess-INPUT").value = "";
+	guess = guess.toUpperCase();
+	if (!valid_guess_list.includes(guess)) {
+		localStorage.setItem("message-STORAGE","<span style=\"color:red\">Enter a valid five-letter word.</span>");
+		print_messages();
+		return;
+	}
+	if (past_guesses.includes(guess)) {
+		localStorage.setItem("message-STORAGE","<span style=\"color:red\">You already guessed that!</span>");
+		print_messages();
+		return;
+	}
+	guess_number++;
+	past_guesses.push(guess);
+	let guess_letters = guess.split("");
+	
 	let letters1 = word1.split("");
 	let letters2 = word2.split("");
 	let letters = letters1.concat(letters2);
-	
-	let guess = document.getElementById("guess-input").value;
-	document.getElementById("guess-input").value = "";
-	guess = guess.toUpperCase();
-	if (!valid_guess_list.includes(guess)) {
-		return;
-	}
-	let guess_letters = guess.split("");
-	guess_num++;
-	
 	let correct_letters1 = 0;
 	let correct_letters2 = 0;
 	for (let i=0; i<5; i++) {
@@ -9274,68 +9334,149 @@ function check() {
 	
 	let output = "";
 	for (let i=0; i<5; i++) {
-		if (letters1[i] == "1" || letters2[i] == "1") {
-			output += "<span style=\"color:green\">" + guess_letters[i] + "</span>";
+		if (letters1[i] === "1" || letters2[i] === "1") {
+			output += "<span style=\"color:" + green_color + "\">" + guess_letters[i] + "</span>";
 			green_letters.push(guess_letters[i]);
 		} else if (green_removed.includes(guess_letters[i])) {
-			output += "<span style=\"color:orange\">" + guess_letters[i] + "</span>";
+			output += "<span style=\"color:" + yellow_color + "\">" + guess_letters[i] + "</span>";
 			green_removed.splice(green_removed.indexOf(guess_letters[i]), 1);
 			yellow_letters.push(guess_letters[i]);
 		} else {
-			output += "<span style=\"color:lightgray\">" + guess_letters[i] + "</span>";
+			output += "<span style=\"color:" + absent_color + "\">" + guess_letters[i] + "</span>";
 			if (!letters.includes(guess_letters[i])) {
 				absent_letters.push(guess_letters[i]);
 			}
 		}
 	}
 	
-	let letter_display = "";
+	let letters_used = "";
 	for (let i=0; i<26; i++) {
 		if (green_letters.includes(alphabet[i])) {
-			letter_display += "<span style=\"color:green\">" + alphabet[i] + "</span>";
+			letters_used += "<span style=\"color:" + green_color + "\">" + alphabet[i] + "</span>";
 		} else if (yellow_letters.includes(alphabet[i])) {
-			letter_display += "<span style=\"color:orange\">" + alphabet[i] + "</span>";
+			letters_used += "<span style=\"color:" + yellow_color + "\">" + alphabet[i] + "</span>";
 		} else if (absent_letters.includes(alphabet[i])) {
-			letter_display += "<span style=\"color:lightgray\">" + alphabet[i] + "</span>";
+			letters_used += "<span style=\"color:" + absent_color + "\">" + alphabet[i] + "</span>";
 		} else {
-			letter_display += alphabet[i];
+			letters_used += alphabet[i];
 		}
 		if (alphabet[i] == "P") {
-			letter_display += "</br>";
+			letters_used += "</br>";
 		} else if (alphabet[i] == "L") {
-			letter_display += "</br>";
+			letters_used += "</br>";
 		} else if (alphabet[i] == "M") {
-			letter_display += "&nbsp;&nbsp;";
+			letters_used += "&nbsp;&nbsp;";
 		} else {
-			letter_display += " ";
+			letters_used += " ";
 		}
 	}
-	document.getElementById("letters-used").innerHTML = letter_display;
+	localStorage.setItem("letters-used-STORAGE", letters_used);
 	
-	if (correct_letters1 == 5) {
+	if (correct_letters1 === 5) {
 		correct1 = true;
-		output = "* " + output + " *";
+		output = "<span style=\"color:" + green_color + "\">* </span>" + output + "<span style=\"color:" + green_color + "\"> *</span>";
 	}
-	if (correct_letters2 == 5) {
+	if (correct_letters2 === 5) {
 		correct2 = true;
-		output = "* " + output + " *";
+		output = "<span style=\"color:" + green_color + "\">* </span>" + output + "<span style=\"color:" + green_color + "\"> *</span>";
 	}
-	output += "<br>";
-	document.getElementById("guesses").innerHTML += output;
+	output = localStorage.getItem("guesses-to-screen-STORAGE") + output + "<br>";
+	localStorage.setItem("guesses-to-screen-STORAGE", output);
 	
+	let message = "";
 	if (correct1 && correct2) {
-		document.getElementById("message").innerHTML = "You uncovered both words in " + guess_num + " guesses. Nice job!";
+		message = "You uncovered both words in " + guess_number + " guesses. Nice job!";
 	} else if (correct1 || correct2) {
-		if (guess_num == 1) {
-				document.getElementById("message").innerHTML = "You have uncovered 1 word in 1 guess. (Wow!)";
+		if (guess_number === 1) {
+				message = "You have uncovered 1 word in 1 guess. That's crazy!";
 			} else {
-				document.getElementById("message").innerHTML = "You have uncovered 1 word in " + guess_num + " guesses.";
+				message = "You have uncovered 1 word in " + guess_number + " guesses.";
 			}
 	} else {
-		if (guess_num == 1) {
-			document.getElementById("message").innerHTML = "You have made 1 guess.";
+		if (guess_number === 1) {
+			message = "You have made 1 guess.";
 		} else {
-			document.getElementById("message").innerHTML = "You have made " + guess_num + " guesses.";
+			message = "You have made " + guess_number + " guesses.";
 		}
 	}
+	localStorage.setItem("message-STORAGE", message);
+
+	// repack local storage
+	localStorage.setItem("guess-number-STORAGE", guess_number);
+	localStorage.setItem("past-guesses-STORAGE", past_guesses);
+	localStorage.setItem("correct1-STORAGE", correct1);
+	localStorage.setItem("correct2-STORAGE", correct2);
+	localStorage.setItem("green-letters-STORAGE", green_letters);
+	localStorage.setItem("yellow-letters-STORAGE", yellow_letters);
+	localStorage.setItem("absent-letters-STORAGE", absent_letters);
+	
+	print_messages();
+}
+
+// --
+// display everything
+// --
+
+print_messages();
+
+// new word when? 
+let hour_differential = (24+now.getHours()-(now.getUTCHours()-new_word_shift)) % 24;
+let minute_differential = Math.abs(now.getMinutes()-now.getUTCMinutes()) / 10;
+
+let new_word_when = "";
+if (hour_differential === 0) {
+	new_word_when = "New daily puzzle at 12:" + minute_differential + "0am (local time).";
+} else if (hour_differential < 12) {
+	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0am (local time).";
+} else if (hour_differential === 12) {
+	new_word_when = "New daily puzzle at 12:" + minute_differential + "0pm (local time).";
+} else {
+	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0pm (local time).";
+}
+document.getElementById("new-word-when-ELEMENT").innerHTML = new_word_when;
+
+// dark mode vs. light mode
+function rerender(dark_mode) {
+	let body = document.getElementsByTagName("body")[0];
+	body.style.color = (dark_mode ? D_text : L_text);
+	body.style.backgroundColor = (dark_mode ? D_bg : L_bg);
+	
+	green_color = (dark_mode ? D_green : L_green);
+	document.getElementsByTagName("a")[0].style.color = green_color;
+	document.getElementById("star-ELEMENT").style.color = green_color;
+}
+
+function update_dark_mode() {
+	let dark_mode = document.getElementById("dark-mode-CHECKBOX").checked;
+	localStorage.setItem("dark-mode-STORAGE", dark_mode);
+	
+	let old_green_color = (dark_mode ? L_green : D_green);
+	let new_green_color = (dark_mode ? D_green : L_green);
+	let old_yellow_color = (dark_mode ? L_yellow : D_yellow);
+	let new_yellow_color = (dark_mode ? D_yellow : L_yellow);
+	let old_absent_color = (dark_mode ? L_absent : D_absent);
+	let new_absent_color = (dark_mode ? D_absent : L_absent);
+	
+	let guesses_to_screen = localStorage.getItem("guesses-to-screen-STORAGE");
+	guesses_to_screen = guesses_to_screen.replaceAll(old_green_color, new_green_color);
+	guesses_to_screen = guesses_to_screen.replaceAll(old_yellow_color, new_yellow_color);
+	guesses_to_screen = guesses_to_screen.replaceAll(old_absent_color, new_absent_color);
+	localStorage.setItem("guesses-to-screen-STORAGE", guesses_to_screen);
+	
+	let letters_used = localStorage.getItem("letters-used-STORAGE");
+	letters_used = letters_used.replaceAll(old_green_color, new_green_color);
+	letters_used = letters_used.replaceAll(old_yellow_color, new_yellow_color);
+	letters_used = letters_used.replaceAll(old_absent_color, new_absent_color);
+	localStorage.setItem("letters-used-STORAGE", letters_used);
+	
+	rerender(dark_mode);
+	print_messages();
+}
+
+if (localStorage.getItem("dark-mode-STORAGE") === null) {
+	localStorage.setItem("dark-mode-STORAGE", "false")
+} else {
+	let dark_mode = localStorage.getItem("dark-mode-STORAGE") === "true";
+	document.getElementById("dark-mode-CHECKBOX").checked = dark_mode;
+	rerender(dark_mode);
 }
