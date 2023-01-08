@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -7,6 +8,7 @@ body {
 	font-family: Courier, Monospace;
 	color: #16161d;
 }
+a { text-decoration: none; }
 </style>
 </head>
 
@@ -46,17 +48,19 @@ next to it.
 Warning: Just because a word is all green does not mean that it is one of the hidden words!
 </p>
 
+<p id="new-word-when-ELEMENT"></p>
+
 <hr>
 
+<p id="puzzle-message-ELEMENT"></p>
+
 <p>
-<span id="puzzle-message-ELEMENT"></span>
 Click
 <button type="button" id="random-game-BUTTON" onclick="random_game()" style="font-family:Courier,Monospace">here</button>
 to start a new game with a random pair of words.
 Click
 <button type="button" id="daily-game-BUTTON" onclick="initialize()" style="font-family:Courier,Monospace">here</button>
 to restart the daily puzzle.
-<span id="new-word-when-ELEMENT"></span>
 </p>
 
 <p>
@@ -67,11 +71,10 @@ Dark mode: <input type="checkbox" id="dark-mode-CHECKBOX" onclick="update_dark_m
 <hr>
 
 <p>
-Made by <a href="https://jakehuryn.github.io" style="color:#379127">Jake Huryn</a>.
+Made by <a href="https://jakehuryn.github.io" style="color:#379127"><b>Jake Huryn</b></a>.
 <!-- Для моєї сонечка. -->
 Thanks for playing!
 </p>
-
 
 <p hidden>
 <button type="button" id="reset-storage-BUTTON" onclick="localStorage.clear()">localStorage.clear()</button>
@@ -81,6 +84,5 @@ Thanks for playing!
 </div>
 
 <script src="wwoorrddllee.js"></script>
-<script src="words.js"></script>
 </body>
 </html>
