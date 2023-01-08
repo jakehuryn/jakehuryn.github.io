@@ -5768,7 +5768,12 @@ noobs
 bling
 rares
 gloop
-tushy`.toUpperCase();
+tushy
+fifer
+flowy
+bijou
+fillo
+filos`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9129,7 +9134,8 @@ wonky.
 anime.
 pouty.
 bling.
-gloop.`.toUpperCase();
+gloop.
+flowy.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
