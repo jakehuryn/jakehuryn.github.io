@@ -5773,7 +5773,8 @@ fifer
 flowy
 bijou
 fillo
-filos`.toUpperCase();
+filos
+bendy`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9135,7 +9136,8 @@ anime.
 pouty.
 bling.
 gloop.
-flowy.`.toUpperCase();
+flowy.
+bendy.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
@@ -9313,7 +9315,7 @@ function check() {
 		return;
 	}
 	if (past_guesses.includes(guess)) {
-		localStorage.setItem("message-STORAGE","<span style=\"color:red\">You already guessed that!</span>");
+		localStorage.setItem("message-STORAGE", "<span style=\"color:red\">You already guessed that!</span>");
 		print_messages();
 		return;
 	}
