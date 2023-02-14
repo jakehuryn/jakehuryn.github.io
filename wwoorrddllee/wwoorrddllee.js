@@ -5774,7 +5774,19 @@ flowy
 bijou
 fillo
 filos
-bendy`.toUpperCase();
+bendy
+liger
+chivy
+mingy
+mincy
+dumbs
+binky
+midge
+podge
+bodge
+chevy
+rando
+tonne`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9137,7 +9149,9 @@ pouty.
 bling.
 gloop.
 flowy.
-bendy.`.toUpperCase();
+bendy.
+liger.
+midge.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
@@ -9152,15 +9166,10 @@ document.addEventListener("keypress", function(event) {
 
 // colors
 let L_bg = "#ffffff";
-let D_bg = "#16161d";
 let L_text = "#16161d";
-let D_text = "#ffffff";
-let L_green = "#379127";
-let D_green = "#5ea752";
-let L_yellow = "#f3b63b";
-let D_yellow = "#f3983b";
-let L_absent = "#e7e7e8";
-let D_absent = "#373749";
+let green_color = "#379127";
+let yellow_color = "#f3b63b";
+let absent_color = "#e7e7e8";
 
 // some useful functions for random number generation
 // random-with-seed number generator from https://stackoverflow.com/a/47593316
@@ -9250,6 +9259,32 @@ function print_messages() {
 	document.getElementById("debug2-ELEMENT").innerHTML = now.getUTCHours();
 }
 
+function generate_encouragement(tries) {
+	if (tries === 2) {
+		return "The chances are 1 in >10,000,000! (...unless you cheated)";
+	} else if (tries <= 4) {
+		return "Unbelievable!";
+	} else if (tries === 5) {
+		return "Incredible!"; // astounding
+	} else if (tries === 6) {
+		return "Fantastic!"; // amazing
+	} else if (tries === 7) {
+		return "Awesome!";
+	} else if (tries === 8) {
+		return "Great job!"; // very good
+	} else if (tries === 9) {
+		return "Nice job!"; // good job
+	} else if (tries === 10) {
+		return "Good work!"; // pretty good
+	} else if (tries <= 15) {
+		return "Not bad!";
+	} else if (tries <= 20) {
+		return "Keep practicing!";
+	} else {
+		return "That must have been painful. Keep practicing!";
+	}
+}
+
 function initialize() {
 	localStorage.setItem("game-data-STORAGE", true);
 	localStorage.setItem("letters-used-STORAGE", "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;");
@@ -9269,6 +9304,20 @@ function initialize() {
 	print_messages();
 }
 
+function initialize_daily() {
+	localStorage.setItem("daily-game-data-STORAGE", true);
+	localStorage.setItem("daily-letters-used-STORAGE", "Q W E R T Y U I O P</br>A S D F G H J K L</br>Z X C V B N M&nbsp;&nbsp;");
+	localStorage.setItem("daily-message-STORAGE", "Take a guess!");
+	localStorage.setItem("daily-guesses-to-screen-STORAGE", "");
+	localStorage.setItem("daily-guess-number-STORAGE", 0);
+	localStorage.setItem("daily-past-guesses-STORAGE", "");
+	localStorage.setItem("daily-correct1-STORAGE", false);
+	localStorage.setItem("daily-correct2-STORAGE", false);
+	localStorage.setItem("daily-green-letters-STORAGE", "");
+	localStorage.setItem("daily-yellow-letters-STORAGE", "");
+	localStorage.setItem("daily-absent-letters-STORAGE", "");
+}
+
 function random_game() {
 	initialize();
 	localStorage.setItem("word1-STORAGE", random_word());
@@ -9277,8 +9326,51 @@ function random_game() {
 	print_messages();
 }
 
+function return_to_daily() {
+	if (localStorage.getItem("daily-game-data-STORAGE") === "true") {
+		localStorage.setItem("game-data-STORAGE", localStorage.getItem("daily-game-data-STORAGE"));
+		localStorage.setItem("letters-used-STORAGE", localStorage.getItem("daily-letters-used-STORAGE"));
+		localStorage.setItem("message-STORAGE", localStorage.getItem("daily-message-STORAGE"));
+		localStorage.setItem("guesses-to-screen-STORAGE", localStorage.getItem("daily-guesses-to-screen-STORAGE"));
+		localStorage.setItem("guess-number-STORAGE", localStorage.getItem("daily-guess-number-STORAGE"));
+		localStorage.setItem("past-guesses-STORAGE", localStorage.getItem("daily-past-guesses-STORAGE"));
+		localStorage.setItem("correct1-STORAGE", localStorage.getItem("daily-correct1-STORAGE"));
+		localStorage.setItem("correct2-STORAGE", localStorage.getItem("daily-correct2-STORAGE"));
+		localStorage.setItem("green-letters-STORAGE", localStorage.getItem("daily-green-letters-STORAGE"));
+		localStorage.setItem("yellow-letters-STORAGE", localStorage.getItem("daily-yellow-letters-STORAGE"));
+		localStorage.setItem("absent-letters-STORAGE", localStorage.getItem("daily-absent-letters-STORAGE"));
+		localStorage.setItem("word1-STORAGE", daily_word1);
+		localStorage.setItem("word2-STORAGE", daily_word2);
+		localStorage.setItem("day-STORAGE", today);
+		localStorage.setItem("puzzle-message-STORAGE", " the daily puzzle");
+		print_messages();
+	} else {
+		initialize();
+	}
+}
+
+function current_to_daily() {
+	localStorage.setItem("daily-game-data-STORAGE", localStorage.getItem("game-data-STORAGE"));
+	localStorage.setItem("daily-letters-used-STORAGE", localStorage.getItem("letters-used-STORAGE"));
+	localStorage.setItem("daily-message-STORAGE", localStorage.getItem("message-STORAGE"));
+	localStorage.setItem("daily-guesses-to-screen-STORAGE", localStorage.getItem("guesses-to-screen-STORAGE"));
+	localStorage.setItem("daily-guess-number-STORAGE", localStorage.getItem("guess-number-STORAGE"));
+	localStorage.setItem("daily-past-guesses-STORAGE", localStorage.getItem("past-guesses-STORAGE"));
+	localStorage.setItem("daily-correct1-STORAGE", localStorage.getItem("correct1-STORAGE"));
+	localStorage.setItem("daily-correct2-STORAGE", localStorage.getItem("correct2-STORAGE"));
+	localStorage.setItem("daily-green-letters-STORAGE", localStorage.getItem("green-letters-STORAGE"));
+	localStorage.setItem("daily-yellow-letters-STORAGE", localStorage.getItem("yellow-letters-STORAGE"));
+	localStorage.setItem("daily-absent-letters-STORAGE", localStorage.getItem("absent-letters-STORAGE"));
+}
+
+function restart_daily() {
+	initialize();
+	initialize_daily();
+}
+
 if (localStorage.getItem("game-data-STORAGE") !== "true" || localStorage.getItem("day-STORAGE") !== today.toString()) {
 	initialize();
+	initialize_daily();
 }
 
 // --
@@ -9296,11 +9388,6 @@ function check() {
 	let absent_letters = localStorage.getItem("absent-letters-STORAGE").split(",");
 	let word1 = localStorage.getItem("word1-STORAGE");
 	let word2 = localStorage.getItem("word2-STORAGE");
-	let dark_mode = localStorage.getItem("dark-mode-STORAGE") === "true";
-	
-	let green_color = (dark_mode ? D_green : L_green);
-	let yellow_color = (dark_mode ? D_yellow : L_yellow);
-	let absent_color = (dark_mode ? D_absent : L_absent);
 	
 	if (correct1 && correct2) {
 		return;
@@ -9393,10 +9480,11 @@ function check() {
 	
 	let message = "";
 	if (correct1 && correct2) {
-		message = "You uncovered both words in " + guess_number + " guesses. Nice job!";
+		encouragement = generate_encouragement(guess_number);
+		message = "You uncovered both words in " + guess_number + " guesses. " + encouragement;
 	} else if (correct1 || correct2) {
 		if (guess_number === 1) {
-				message = "You have uncovered 1 word in 1 guess. That's crazy!";
+				message = "You have uncovered 1 word in 1 guess. Luckyyyy!";
 			} else {
 				message = "You have uncovered 1 word in " + guess_number + " guesses.";
 			}
@@ -9417,6 +9505,10 @@ function check() {
 	localStorage.setItem("green-letters-STORAGE", green_letters);
 	localStorage.setItem("yellow-letters-STORAGE", yellow_letters);
 	localStorage.setItem("absent-letters-STORAGE", absent_letters);
+	
+	if (localStorage.getItem("puzzle-message-STORAGE") === " the daily puzzle") {
+		current_to_daily();
+	}
 	
 	print_messages();
 }
@@ -9442,49 +9534,3 @@ if (hour_differential === 0) {
 	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0pm (local time).";
 }
 document.getElementById("new-word-when-ELEMENT").innerHTML = new_word_when;
-
-// dark mode vs. light mode
-function rerender(dark_mode) {
-	let body = document.getElementsByTagName("body")[0];
-	body.style.color = (dark_mode ? D_text : L_text);
-	body.style.backgroundColor = (dark_mode ? D_bg : L_bg);
-	
-	green_color = (dark_mode ? D_green : L_green);
-	document.getElementsByTagName("a")[0].style.color = green_color;
-	document.getElementById("star-ELEMENT").style.color = green_color;
-}
-
-function update_dark_mode() {
-	let dark_mode = document.getElementById("dark-mode-CHECKBOX").checked;
-	localStorage.setItem("dark-mode-STORAGE", dark_mode);
-	
-	let old_green_color = (dark_mode ? L_green : D_green);
-	let new_green_color = (dark_mode ? D_green : L_green);
-	let old_yellow_color = (dark_mode ? L_yellow : D_yellow);
-	let new_yellow_color = (dark_mode ? D_yellow : L_yellow);
-	let old_absent_color = (dark_mode ? L_absent : D_absent);
-	let new_absent_color = (dark_mode ? D_absent : L_absent);
-	
-	let guesses_to_screen = localStorage.getItem("guesses-to-screen-STORAGE");
-	guesses_to_screen = guesses_to_screen.replaceAll(old_green_color, new_green_color);
-	guesses_to_screen = guesses_to_screen.replaceAll(old_yellow_color, new_yellow_color);
-	guesses_to_screen = guesses_to_screen.replaceAll(old_absent_color, new_absent_color);
-	localStorage.setItem("guesses-to-screen-STORAGE", guesses_to_screen);
-	
-	let letters_used = localStorage.getItem("letters-used-STORAGE");
-	letters_used = letters_used.replaceAll(old_green_color, new_green_color);
-	letters_used = letters_used.replaceAll(old_yellow_color, new_yellow_color);
-	letters_used = letters_used.replaceAll(old_absent_color, new_absent_color);
-	localStorage.setItem("letters-used-STORAGE", letters_used);
-	
-	rerender(dark_mode);
-	print_messages();
-}
-
-if (localStorage.getItem("dark-mode-STORAGE") === null) {
-	localStorage.setItem("dark-mode-STORAGE", "false")
-} else {
-	let dark_mode = localStorage.getItem("dark-mode-STORAGE") === "true";
-	document.getElementById("dark-mode-CHECKBOX").checked = dark_mode;
-	rerender(dark_mode);
-}
