@@ -5786,7 +5786,10 @@ podge
 bodge
 chevy
 rando
-tonne`.toUpperCase();
+tonne
+bento
+boney
+mewls`.toUpperCase();
 var words = `which.
 there.
 their.
