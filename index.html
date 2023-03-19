@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Jake Huryn</title>
 <style>
 body {
 	width: 600px;
@@ -40,7 +41,7 @@ p {
 <h1>Jake Huryn</h1>
 
 I'm a second-year math Ph.D. student at The Ohio State University.
-I focus on arithmetic geometry.
+I am interested in number theory and algebraic geometry.
 My advisor is
 <a href="https://people.math.osu.edu/patrikis.1/" target="_blank">
 <b>Stefan Patrikis</b></a>.
@@ -66,8 +67,8 @@ As an undergrad, I did research in graph theory and Ramsey theory, which you can
 
 <ul>
 <li><a href="exposition/rep-theory-notes.pdf" target="_blank" style="font-size:14pt">
-<b>Notes on representations of finite groups</b></a>.
-<i>Based on a short reading course run by
+<b>Notes on representations of finite groups</b></a>
+<i>— Based on a short reading course led by
 <a href="https://people.math.osu.edu/gautam.42/" target="_blank">
 <b>Sachin Gautam</b></a></i>.
 </li>
@@ -79,14 +80,18 @@ As an undergrad, I did research in graph theory and Ramsey theory, which you can
 
 <ul>
 <li>
+<a href="inky" style="font-size:14pt">
+<b>Inky</b></a>
+</li>
+<li>
 <a href="music" style="font-size:14pt">
-<b>music</b></a>.
-I like to make weird music.
+<b>music</b></a>
+— I like to make weird music.
 </li>
 <li>
 <a href="wwoorrddllee" style="font-size:14pt">
-<b>wwoorrddllee</b></a>.
-I made a Wordle spinoff.
+<b>wwoorrddllee</b></a>
+— I made a Wordle spinoff.
 </li>
 </ul>
 
@@ -120,7 +125,8 @@ I made a Wordle spinoff.
 <p hidden id="debug-ELEMENT"></p>
 
 <script>
-let random_picture = "pictures/jake" + Math.min(Math.floor(Math.random()*6), 5) + ".png";
+let image_count = 8;
+let random_picture = "pictures/jake" + Math.min(Math.floor(Math.random()*image_count), image_count-1) + ".png";
 document.getElementById("debug-ELEMENT").innerHTML = random_picture;
 document.getElementById("picture-ELEMENT").setAttribute("src", random_picture);
 </script>
