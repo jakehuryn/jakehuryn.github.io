@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>WwOoRrDdLlEe</title>
 <style>
 body {
 	max-width: 600px;
@@ -52,9 +53,9 @@ hr {
 	color: #16161d;
 	cursor: pointer;
 	padding: 17px;
-	width: 100%;
+	width: 50%;
 	border: none;
-	text-align: left;
+	text-align: center;
 	outline: none;
 	font-size: 17px;
 	font-family: Courier, Monospace;
@@ -73,7 +74,7 @@ hr {
 
 <body>
 <div style="text-align:center">
-<p style="font-size:17px">wwoorrddllee</p>
+<p style="font-size:17px">WwOoRrDdLlEe</p>
 <b><span id="letters-used-ELEMENT" style="font-size:27px"></span></b>
 
 <br>
@@ -92,7 +93,7 @@ hr {
 
 <br>
 
-<button type="button" class="collapsible" id="about-BUTTON"><b>about</b></button>
+<button type="button" class="collapsible" id="about-BUTTON"><b>about</b></button><button type="button" class="collapsible" id="new-game-BUTTON" onclick="random_game()"><b>new puzzle</b></button>
 <div style="font-size:17px" class="content" id="about-ELEMENT">
 <p>
 You are trying to guess two five-letter words.
@@ -113,8 +114,8 @@ Warning: Just because a word is all green does not mean that it is one of the hi
 
 <p>
 <button type="button" id="random-game-BUTTON" onclick="random_game()">Click here</button>
-to start a new game with a random pair of words.
-(Your progress on the daily puzzle will be saved.)
+(or on "new puzzle" above) to start a new puzzle with a random pair of words.
+Your progress on the daily puzzle will be saved.
 </p>
 <p>
 <button type="button" id="return-to-daily-BUTTON" onclick="return_to_daily()">Click here</button>
@@ -122,7 +123,7 @@ to return to the daily puzzle.
 </p>
 <p>
 <button type="button" id="restart-daily-BUTTON" onclick="restart_daily()">Click here</button>
-to restart the daily puzzle.
+to reset your progress on the daily puzzle.
 </p>
 
 <hr>
