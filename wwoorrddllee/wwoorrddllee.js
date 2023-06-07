@@ -5789,7 +5789,12 @@ rando
 tonne
 bento
 boney
-mewls`.toUpperCase();
+mewls
+bleep
+boing
+burpy
+outed
+outro`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9154,7 +9159,12 @@ gloop.
 flowy.
 bendy.
 liger.
-midge.`.toUpperCase();
+midge.
+bleep.
+boing.
+burpy.
+outed.
+outro.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
