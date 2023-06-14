@@ -2341,7 +2341,6 @@ wiles
 amigo
 copra
 amiss
-eying
 twirl
 lurch
 popes
@@ -5794,7 +5793,10 @@ bleep
 boing
 burpy
 outed
-outro`.toUpperCase();
+outro
+thill
+coily
+boink`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -8061,7 +8063,6 @@ keyed.
 finch.
 chaff.
 amiss.
-eying.
 twirl.
 lurch.
 popes,
@@ -9164,7 +9165,8 @@ bleep.
 boing.
 burpy.
 outed.
-outro.`.toUpperCase();
+outro.
+coily.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
@@ -9217,13 +9219,16 @@ function correct_range(r) {
 // --
 
 // daily words (plus info for knowing when the new words appear)
-let new_word_shift = 6;
+let new_word_shift = 6000000;
 let UTC_now = new Date();
 let now = new Date(UTC_now.getTime() - new_word_shift*3600*1000);
 let today = now.getUTCDate();
 let daily_seed = today + 100*now.getUTCMonth() + 10000*now.getUTCFullYear();
 let daily_index1 = correct_range(rand_with_seed(daily_seed));
 let daily_index2 = correct_range(rand_with_seed(daily_seed*10));
+
+let birth = new Date('December 31, 2022 6:00:00 GMT+00:00');
+let game_number = Math.ceil((UTC_now.getTime() - birth.getTime())/(24*3600*1000));
 
 // regenerate if the words end in "s" and try one more time if both new words end in "s"
 if (word_list[daily_index1].split("")[5] === ",") {
@@ -9313,7 +9318,7 @@ function initialize() {
 	localStorage.setItem("word1-STORAGE", daily_word1);
 	localStorage.setItem("word2-STORAGE", daily_word2);
 	localStorage.setItem("day-STORAGE", today);
-	localStorage.setItem("puzzle-message-STORAGE", " the daily puzzle");
+	localStorage.setItem("puzzle-message-STORAGE", " daily puzzle " + game_number);
 	print_messages();
 }
 
@@ -9355,7 +9360,7 @@ function return_to_daily() {
 		localStorage.setItem("word1-STORAGE", daily_word1);
 		localStorage.setItem("word2-STORAGE", daily_word2);
 		localStorage.setItem("day-STORAGE", today);
-		localStorage.setItem("puzzle-message-STORAGE", " the daily puzzle");
+		localStorage.setItem("puzzle-message-STORAGE", " daily puzzle " + game_number);
 		print_messages();
 	} else {
 		initialize();
@@ -9434,7 +9439,9 @@ function check() {
 			correct_letters1++;
 		}
 		if (guess_letters[i] == letters2[i]) {
-			letters2[i] = "1";
+			if (letters1[i] != "1") {
+				letters2[i] = "1";
+			}
 			correct_letters2++;
 		}
 	}
@@ -9519,7 +9526,7 @@ function check() {
 	localStorage.setItem("yellow-letters-STORAGE", yellow_letters);
 	localStorage.setItem("absent-letters-STORAGE", absent_letters);
 	
-	if (localStorage.getItem("puzzle-message-STORAGE") === " the daily puzzle") {
+	if (localStorage.getItem("puzzle-message-STORAGE") === " daily puzzle " + game_number) {
 		current_to_daily();
 	}
 	
