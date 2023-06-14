@@ -9219,7 +9219,7 @@ function correct_range(r) {
 // --
 
 // daily words (plus info for knowing when the new words appear)
-let new_word_shift = 6000000;
+let new_word_shift = 6;
 let UTC_now = new Date();
 let now = new Date(UTC_now.getTime() - new_word_shift*3600*1000);
 let today = now.getUTCDate();
