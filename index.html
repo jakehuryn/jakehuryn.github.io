@@ -36,52 +36,66 @@ p {
 </head>
 
 <body>
-<img id="picture-ELEMENT" src="pictures/jake1.png" alt="Picture of Jake Huryn" style="width:169px;border:5px solid #16161d;margin:5px" align="right"></img>
+<img id="picture-ELEMENT" src="pictures/jake.png" alt="Picture of Jake Huryn" style="width:169px;border:5px solid #16161d;margin:5px" align="right"></img>
 
 <h1>Jake Huryn</h1>
 
-I'm a second-year math Ph.D. student at The Ohio State University.
+I'm a third-year math Ph.D. student at The Ohio State University.
 I am interested in number theory and algebraic geometry.
 My advisor is
 <a href="https://people.math.osu.edu/patrikis.1/" target="_blank">
 <b>Stefan Patrikis</b></a>.
-<br>
-<br>
-Here is my
+<ul>
+<li>
 <a href="cv">
-<b>CV</b></a>.
-Click <a href="https://math.osu.edu/people/huryn.5" target="_blank">
-<b>this link</b></a> to find my email address.
-<br><br><hr>
+<b>CV</b></a>
+</li>
+<li>
+<a href="https://math.osu.edu/people/huryn.5" target="_blank">
+<b>OSU page</b></a> (including email address)
+</li>
+<!--
+<li>
+<a href="name">
+<b>Name pronunciation</b></a>
+</li>
+-->
+</ul>
+<hr>
 
 <h2>research</h2>
 
 As an undergrad, I did research in graph theory and Ramsey theory, which you can find
-<a href="https://arxiv.org/search/math?query=Huryn%2C+Jake&searchtype=author&abstracts=show&order=-announced_date_first&size=50" target="_blank">
+<a href="https://arxiv.org/a/huryn_j_1.html" target="_blank">
 <b>on arXiv</b></a>.
 
 <br><br>
 <hr>
-            
-<h2>exposition</h2>
+
+<!--
+<h2>notes</h2>
 
 <ul>
 <li><a href="exposition/rep-theory-notes.pdf" target="_blank" style="font-size:14pt">
 <b>Notes on representations of finite groups</b></a>
 <i>— Based on a short reading course led by
 <a href="https://people.math.osu.edu/gautam.42/" target="_blank">
-<b>Sachin Gautam</b></a></i>.
+<b>Sachin Gautam</b></a>.</i>
+</li>
+<li><a href="exposition/harmonic-series" style="font-size:14pt">
+<b>A silly proof the harmonic series diverges</b></a>
 </li>
 </ul>
 
 <hr>
+-->
 
 <h2>non-math</h2>
 
 <ul>
 <li>
 <a href="inky" style="font-size:14pt">
-<b>Inky</b></a>
+<b>Inky!!!</b></a>
 </li>
 <li>
 <a href="music" style="font-size:14pt">
@@ -89,8 +103,8 @@ As an undergrad, I did research in graph theory and Ramsey theory, which you can
 — I like to make weird music.
 </li>
 <li>
-<a href="wwoorrddllee" style="font-size:14pt">
-<b>wwoorrddllee</b></a>
+<a href="WwOoRrDdLlEe" style="font-size:14pt">
+<span style="font-family: Courier, Monospace;"><b>WwOoRrDdLlEe</b></span></a>
 — I made a Wordle spinoff.
 </li>
 </ul>
@@ -128,7 +142,7 @@ As an undergrad, I did research in graph theory and Ramsey theory, which you can
 let image_count = 8;
 let random_picture = "pictures/jake" + Math.min(Math.floor(Math.random()*image_count), image_count-1) + ".png";
 document.getElementById("debug-ELEMENT").innerHTML = random_picture;
-document.getElementById("picture-ELEMENT").setAttribute("src", random_picture);
+// document.getElementById("picture-ELEMENT").setAttribute("src", random_picture);
 </script>
 </body>
 </html>
