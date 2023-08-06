@@ -5796,7 +5796,13 @@ outed
 outro
 thill
 coily
-boink`.toUpperCase();
+boink
+twink
+pavid
+glowy
+taser
+tased
+tases`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9166,7 +9172,9 @@ boing.
 burpy.
 outed.
 outro.
-coily.`.toUpperCase();
+coily.
+glowy.
+taser.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
@@ -9229,6 +9237,22 @@ let daily_index2 = correct_range(rand_with_seed(daily_seed*10));
 
 let birth = new Date('December 31, 2022 6:00:00 GMT+00:00');
 let game_number = Math.ceil((UTC_now.getTime() - birth.getTime())/(24*3600*1000));
+
+// new word when? 
+let hour_differential = (24+now.getHours()-(now.getUTCHours()-new_word_shift)) % 24;
+let minute_differential = Math.abs(now.getMinutes()-now.getUTCMinutes()) / 10;
+
+let new_word_when = "";
+if (hour_differential === 0) {
+	new_word_when = "New daily puzzle at 12:" + minute_differential + "0am (local time).";
+} else if (hour_differential < 12) {
+	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0am (local time).";
+} else if (hour_differential === 12) {
+	new_word_when = "New daily puzzle at 12:" + minute_differential + "0pm (local time).";
+} else {
+	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0pm (local time).";
+}
+document.getElementById("new-word-when-ELEMENT").innerHTML = new_word_when;
 
 // regenerate if the words end in "s" and try one more time if both new words end in "s"
 if (word_list[daily_index1].split("")[5] === ",") {
@@ -9439,9 +9463,11 @@ function check() {
 			correct_letters1++;
 		}
 		if (guess_letters[i] == letters2[i]) {
+			// from the following line ...
 			if (letters1[i] != "1") {
 				letters2[i] = "1";
 			}
+			// ... to the previous line was just 'letters2[i] = "1";'
 			correct_letters2++;
 		}
 	}
@@ -9533,24 +9559,4 @@ function check() {
 	print_messages();
 }
 
-// --
-// display everything
-// --
-
 print_messages();
-
-// new word when? 
-let hour_differential = (24+now.getHours()-(now.getUTCHours()-new_word_shift)) % 24;
-let minute_differential = Math.abs(now.getMinutes()-now.getUTCMinutes()) / 10;
-
-let new_word_when = "";
-if (hour_differential === 0) {
-	new_word_when = "New daily puzzle at 12:" + minute_differential + "0am (local time).";
-} else if (hour_differential < 12) {
-	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0am (local time).";
-} else if (hour_differential === 12) {
-	new_word_when = "New daily puzzle at 12:" + minute_differential + "0pm (local time).";
-} else {
-	new_word_when = "New daily puzzle at " + (hour_differential%12) + ":" + minute_differential + "0pm (local time).";
-}
-document.getElementById("new-word-when-ELEMENT").innerHTML = new_word_when;
