@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fun proofs</title>
+<style>
+body {
+	width: 600px;
+    margin: auto;
+    font-family: sans-serif;
+    font-size: 12pt;
+    color: #16161d;
+    background-color: #ffffff;
+}
+a {
+	text-decoration: none;
+}
+a:link {
+	color: #379127;
+}
+a:visited {
+	color: #379127;
+}
+a:hover {
+	color: #5ea752;
+}
+hr {
+    border: none;
+    border-top: 5px double #d0d0d1;
+    height: 5px;
+}
+p {
+    font-size: 12pt;
+    line-height: 14pt;
+}
+</style>
+</head>
+
+<body>
+<h1>Fun proofs</h1>
+
+<a href="../">
+<b>Back to main page</b></a>.
+
+<br><hr>
+
+<h2>The harmonic series diverges</h2>
+
+<b>Theorem.</b>
+∑<sub><i>n</i>≥1</sub> 1/<i>n</i> = ∞.
+
+<br><br>
+
+<i>Proof.</i>
+Suppose, toward a contradiction, that <i>s</i> := ∑<sub><i>n</i>≥1</sub> 1/<i>n</i> is finite.
+Then
+
+<br>
+<p style="text-indent:50px">
+<i>s</i> = ∑<sub><i>n</i>≥1</sub> 1/(2<i>n</i>) + ∑<sub><i>n</i>≥1</sub> 1/(2<i>n</i>) < ∑<sub><i>n</i>≥1</sub> 1/(2<i>n</i> - 1) + ∑<sub><i>n</i>≥1</sub> 1/(2<i>n</i>) = <i>s</i>.
+∎
+</p>
+
+<hr>
+
+<h2>Sums of squares mod <i>p</i></h2>
+
+<b>Theorem.</b>
+<i>Every element of </i><b>𝔽</b><i><sub>p</sub> is a sum of two squares.</i>
+
+<br><br>
+
+<i>Proof.</i>
+We may suppose <i>p</i> > 2.
+Write <i>S</i> ≔ {<i>a</i><sup>2</sup> + <i>b</i><sup>2</sup>: <i>a</i>,<i>b</i> ∈ <b>𝔽</b><sub><i>p</i></sub>}.
+Obviously 0 ∈ <i>S</i>.
+Exactly half of the elements of <b>𝔽</b><sub><i>p</i></sub><sup>×</sup> are squares, and 1 is a square; it follows that #(<i>S</i> ∖ {0}) > (#<b>𝔽</b><sub><i>p</i></sub><sup>×</sup>)/2.
+But <i>S</i> ∖ {0} is a group under multiplication because of the identity (<i>a</i><sup>2</sup> + <i>b</i><sup>2</sup>)(<i>c</i><sup>2</sup> + <i>d</i><sup>2</sup>) = (<i>ac</i> + <i>bd</i>)<sup>2</sup> + (<i>ad</i> - <i>bc</i>)<sup>2</sup>, so it must be all of #<b>𝔽</b><sub><i>p</i></sub><sup>×</sup> by Lagrange's theorem.
+∎
+
+<br><br><hr>
+
+<h2>Density of primes</h2>
+
+Euler famously observed that the identity <i>ζ</i>(1) = ∞ (in the Euler expansion) implies the infinitude of primes.
+But it also implies that there aren't <i>too</i> many primes:
+
+<br><br>
+
+<b>Theorem.</b>
+<i>Let P be the set of primes.
+Then d</i>(<i>P</i>) = 0<i>, where d means <a href="https://en.wikipedia.org/wiki/Natural_density" target="_blank"><b>natural density</b></a>.</i>
+
+<br><br>
+
+<i>Theorem.</i>
+For each <i>N</i>, define
+
+<br>
+<p style="text-indent:50px">
+<i>T<sub>N</sub></i> ≔ ℕ ∖ <span style="font-size:16pt">∪</span><sub><i>p</i>≤<i>N</i></sub>(<i>p</i>ℕ ∖ <i>p</i>)
+</p>
+
+Clearly <i>P</i> ⊆ <i>T<sub>N</sub></i> for each <i>N</i>.
+But <i>d</i>(<i>p</i>ℕ ∖ <i>p</i>) = 1/<i>p</i>, so by the inclusion-exclusion principle,
+
+<br>
+<p style="text-indent:50px">
+<i>d</i>(<i>T<sub>N</sub></i>) = ∏<sub><i>p</i>≤<i>N</i></sub>(1-1/<i>p</i>) → 1/<i>ζ</i>(1) = 0
+</p>
+
+as <i>N</i> → ∞.
+∎
+
+<br><br><hr>
+
+<h2>Roots of irreducible polynomials mod primes</h2>
+
+I learned the following proof from <a href="https://ariana1729.github.io/" target="_blank"><b>Ariana1729</b></a>.
+
+<br><br>
+
+<b>Theorem.</b>
+<i>Let F be a number field, and let f </i>∈<i> 𝒪<sub>F</sub></i>[<i>t</i>]<i> be a nonlinear irreducible polynomial.
+Then there are infinitely many primes </i>𝔭<i> of F such that f has no roots mod </i>𝔭<i>.</i>
+
+<br><br>
+
+<i>Proof.</i>
+Let <i>K</i> ≔ <i>F</i>[<i>t</i>]/<i>f</i>, and let <i>K</i>′/<i>F</i> be the splitting field of <i>f</i>.
+Set <i>G</i> ≔ Gal(<i>K</i>′/<i>F</i>) and <i>H</i> ≔ Gal(<i>K</i>′/<i>K</i>).
+
+<br><br>
+
+Let 𝔭 be a prime of <i>F</i> which is unramified in <i>K</i>′ and does not divide the conductor of the order 𝒪<sub><i>F</i></sub>[<i>α</i>] in <i>K</i>, where <i>α</i> is the image of <i>t</i> in <i>K</i>.
+Assume that <i>f</i> has a root mod 𝔭.
+Then there exists a prime 𝔓 of 𝒪<sub><i>K</i></sub> lying above 𝔭 with inertial degree <i>f</i><sub>𝔓/𝔭</sub> = 1.
+Let 𝔓′ be a prime of <i>K</i>′ above 𝔓.
+Since #<i>D</i><sub>𝔓′/<i>F</i></sub> = <i>f</i><sub>𝔓′/𝔭</sub> and #<i>D</i><sub>𝔓′/<i>K</i></sub> = <i>f</i><sub>𝔓′/𝔓</sub> (where <i>D</i> means "decomposition group"), multiplicativity of the inertial degree implies that the inclusion <i>D</i><sub>𝔓′/<i>K</i></sub> ⊆ <i>D</i><sub>𝔓′/<i>F</i></sub> is an equality.
+In particular, <i>D</i><sub>𝔓′/<i>F</i></sub> ⊆ <i>H</i>.
+
+<br><br>
+
+Since <i>H</i> is a proper subgroup of <i>G</i>, there must exist some conjugacy class <i>C</i> ⊆ <i>G</i> disjoint from <i>H</i>.
+By Chebotarev's density theorem, there are infinitely many primes 𝔭 of <i>F</i> such that Frob<sub>𝔭</sub> = <i>C</i>.
+Then for any prime 𝔓′ of <i>K</i>′ lying above 𝔭, the group <i>D</i><sub>𝔓′/<i>F</i></sub> contains an element of <i>C</i>, hence cannot be contained in <i>H</i>.
+Thus 𝔭 cannot satisfy the assumptions of the previous paragraph.
+Since only finitely many primes ramify or divide the conductor, the theorem follows.
+∎
+
+<br><br>
+
+<b>Corollary.</b>
+<i>Let a </i>∈ <b>ℤ</b><i>, and let 𝓁 be a prime number.
+Then a is an 𝓁th power mod all but finitely many primes if and only if a is an 𝓁th power in </i><b>ℤ</b><i>.</i>
+
+<br><br>
+
+<i>Proof.</i>
+Special case of the Theorem (irreducibility is an exercise).
+∎
+
+<br><br>
+
+</body>
+</html>
