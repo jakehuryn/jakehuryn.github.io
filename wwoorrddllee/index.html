@@ -129,8 +129,9 @@ to reset your progress on the daily puzzle.
 <hr>
 
 <p>
-Made by <a href="https://jakehuryn.github.io"><b>Jake Huryn</b></a>
+Made by <a href="../"><b>Jake Huryn</b></a>
 <span style="font-size:14px">для його сонечка</span>.
+<span id="narodzhennja" style="font-size:14px"></span>
 </p>
 <p>
 (c) 2023. Thanks for playing!
@@ -155,6 +156,14 @@ collapsible.addEventListener("click", function() {
     	content.style.display = "block";
     }
 });
+
+let UTC_nownow = new Date();
+let nownow = new Date(UTC_nownow.getTime() - 5*3600*1000);
+if (nownow.getMonth() === 11 && nownow.getDate() === 31) {
+	document.getElementById("narodzhennja").innerHTML = "З Днем Народження!";
+} else {
+	document.getElementById("narodzhennja").innerHTML = "";
+}
 </script>
 </body>
 </html>
