@@ -1,5 +1,5 @@
-// yes, i know this 100% cursed. javascript made me do it
-// thanks to knuth for the word list
+// this is 100% cursed. javascript made me do it
+// thanks, knuth, for the word list
 
 var valid_guesses = `which
 there
@@ -5802,7 +5802,13 @@ pavid
 glowy
 taser
 tased
-tases`.toUpperCase();
+tases
+meowy
+minty
+mopey
+prion
+scape
+spork`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9174,7 +9180,10 @@ outed.
 outro.
 coily.
 glowy.
-taser.`.toUpperCase();
+taser.
+minty.
+mopey.
+spork.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
