@@ -5808,7 +5808,9 @@ minty
 mopey
 prion
 scape
-spork`.toUpperCase();
+spork
+blogs
+gelid`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9183,7 +9185,8 @@ glowy.
 taser.
 minty.
 mopey.
-spork.`.toUpperCase();
+spork.
+blogs,`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
