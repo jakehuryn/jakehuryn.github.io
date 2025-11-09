@@ -5810,7 +5810,9 @@ prion
 scape
 spork
 blogs
-gelid`.toUpperCase();
+gelid
+trope
+melty`.toUpperCase();
 var words = `which.
 there.
 their.
@@ -9186,7 +9188,9 @@ taser.
 minty.
 mopey.
 spork.
-blogs,`.toUpperCase();
+blogs,
+trope.
+melty.`.toUpperCase();
 const valid_guess_list = valid_guesses.split("\n");
 const word_list = words.split("\n");
 let word_count = word_list.length;
