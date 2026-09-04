@@ -70,10 +70,10 @@ Then
 <br><br>
 
 <i>Proof.</i>
-We may suppose <i>p</i> > 2.
+We assume <i>p</i> > 2.
 Write <i>S</i> ≔ {<i>a</i><sup>2</sup> + <i>b</i><sup>2</sup>: <i>a</i>,<i>b</i> ∈ <b>𝔽</b><sub><i>p</i></sub>}.
 Obviously 0 ∈ <i>S</i>.
-Exactly half of the elements of <b>𝔽</b><sub><i>p</i></sub><sup>×</sup> are squares, and 1 is a square; it follows that #(<i>S</i> ∖ {0}) > (#<b>𝔽</b><sub><i>p</i></sub><sup>×</sup>)/2.
+Exactly half of the elements of <b>𝔽</b><sub><i>p</i></sub><sup>×</sup> are squares; it follows, by considering elements of the form <i>a</i><sup>2</sup> or <i>a</i><sup>2</sup> + 1, that #(<i>S</i> ∖ {0}) > (#<b>𝔽</b><sub><i>p</i></sub><sup>×</sup>)/2.
 But <i>S</i> ∖ {0} is a group under multiplication because of the identity (<i>a</i><sup>2</sup> + <i>b</i><sup>2</sup>)(<i>c</i><sup>2</sup> + <i>d</i><sup>2</sup>) = (<i>ac</i> + <i>bd</i>)<sup>2</sup> + (<i>ad</i> - <i>bc</i>)<sup>2</sup>, so it must be all of #<b>𝔽</b><sub><i>p</i></sub><sup>×</sup> by Lagrange's theorem.
 ∎
 
@@ -101,11 +101,11 @@ For each <i>N</i>, define
 </p>
 
 Clearly <i>P</i> ⊆ <i>T<sub>N</sub></i> for each <i>N</i>.
-But <i>d</i>(<i>p</i>ℕ ∖ <i>p</i>) = 1/<i>p</i>, so by inclusion-exclusion,
+But <i>d</i>(<i>p</i>ℕ ∖ <i>p</i>) = 1/<i>p</i>, so by inclusion–exclusion,
 
 <br>
 <p style="text-indent:50px">
-<i>d</i>(<i>T<sub>N</sub></i>) = ∏<sub><i>p</i>≤<i>N</i></sub> (1 - 1/<i>p</i>) → 1/<i>ζ</i>(1) = 0
+<i>d</i>(<i>T<sub>N</sub></i>) = ∏<sub><i>p</i>≤<i>N</i></sub> (1-1/<i>p</i>) → 1/<i>ζ</i>(1) = 0
 </p>
 
 as <i>N</i> → ∞.
@@ -120,7 +120,7 @@ I learned the following proof from <a href="https://ariana1729.github.io/" targe
 <br><br>
 
 <b>Theorem.</b>
-<i>Let F be a global field, and let f </i>∈<i> 𝒪<sub>F</sub></i> [<i>t</i> ]<i> be a nonlinear irreducible polynomial.
+<i>Let F be a number field, f </i>∈<i> 𝒪<sub>F</sub></i> [<i>t</i> ]<i> a nonlinear irreducible polynomial.
 Then there are infinitely many primes </i>𝔭<i> of F such that f has no roots mod </i>𝔭<i>.</i>
 
 <br><br>
